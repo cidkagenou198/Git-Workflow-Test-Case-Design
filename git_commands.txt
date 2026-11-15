@@ -53,7 +53,7 @@ Records the .gitignore file into the repository to prevent untracked artifacts f
 17. git reset HEAD~1
 Undoes the most recent commit by moving the HEAD pointer back by one commit while leaving the file modifications in the working tree.
 
-18. git remote add origin https://github.com/cidkagenou198/bits-git-assignment.git
+18. git remote add origin https://github.com/cidkagenou198/Git-Workflow-Test-Case-Design.git
 Links the local repository to a remote repository hosted on GitHub under the alias 'origin'.
 
 19. git branch -M main
@@ -61,3 +61,4 @@ Renames or confirms the primary branch name as 'main' before pushing to the remo
 
 20. git push -u origin main
 Pushes all commits on the local 'main' branch to the remote repository on GitHub and sets up upstream tracking.
+
