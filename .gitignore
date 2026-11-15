@@ -3,3 +3,7 @@
 
 # Ignore temporary cache folder
 temp/
+
+# Ignore assignment submission PDF and report source
+*.pdf
+assignment_report.html
