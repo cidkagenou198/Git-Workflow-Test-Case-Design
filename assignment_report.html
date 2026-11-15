@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Assignment Submission: Git Workflow & Test Case Design</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 18mm 16mm 18mm 16mm;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            color: #222;
+            line-height: 1.5;
+            font-size: 10.5pt;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cover-header {
+            border-bottom: 3px solid #1a56db;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+        }
+
+        .cover-header h1 {
+            color: #1a56db;
+            font-size: 20pt;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+        }
+
+        .cover-header .subtitle {
+            font-size: 12pt;
+            color: #555;
+            margin: 0 0 12px 0;
+        }
+
+        .meta-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 9.5pt;
+            margin-bottom: 24px;
+        }
+
+        .meta-box div {
+            margin: 3px 0;
+        }
+
+        .meta-box strong {
+            color: #334155;
+        }
+
+        h2 {
+            color: #0f172a;
+            font-size: 14pt;
+            border-bottom: 1.5px solid #cbd5e1;
+            padding-bottom: 5px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            color: #1e293b;
+            font-size: 11.5pt;
+            margin-top: 16px;
+            margin-bottom: 6px;
+            page-break-after: avoid;
+        }
+
+        p, ul, ol {
+            margin-top: 4px;
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        .terminal-block {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9pt;
+            line-height: 1.45;
+            margin: 8px 0 14px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            page-break-inside: avoid;
+            border: 1px solid #0f172a;
+        }
+
+        .terminal-block .cmd {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .terminal-block .output {
+            color: #cbd5e1;
+        }
+
+        .code-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #1a56db;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 8.5pt;
+            line-height: 1.4;
+            margin: 8px 0 12px 0;
+            white-space: pre-wrap;
+            page-break-inside: avoid;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px 0;
+            font-size: 9pt;
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+
+        th {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            text-align: left;
+            padding: 8px 10px;
+            font-weight: 600;
+            border: 1px solid #1e3a8a;
+        }
+
+        td {
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            vertical-align: top;
+            line-height: 1.35;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        .badge-valid {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 7.5pt;
+        }
+
+        .badge-invalid {
+            display: inline-block;
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 7.5pt;
+        }
+
+        .badge-edge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 7.5pt;
+        }
+
+        .badge-security {
+            display: inline-block;
+            background: #f3e8ff;
+            color: #6b21a8;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 7.5pt;
+        }
+
+        .note-callout {
+            background-color: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 8px 12px;
+            margin: 10px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 9pt;
+            color: #1e40af;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Cover Section -->
+    <div class="cover-header">
+        <h1>Assignment 1: Git Workflow & Test Case Design</h1>
+        <div class="subtitle">Individual Coursework Submission — Practical Demonstration and Engineering Report</div>
+    </div>
+
+    <div class="meta-box">
+        <div><strong>Student Name:</strong> Kaparthi Sai Charan</div>
+        <div><strong>Student ID:</strong> 2024eb02406</div>
+        <div><strong>Email:</strong> 2024eb02406@online.bits-pilani.ac.in</div>
+        <div><strong>Institution:</strong> BITS Pilani</div>
+        <div><strong>Date:</strong> November 15, 2026</div>
+        <div><strong>Total Marks:</strong> 20 Marks (Weightage: 10%)</div>
+        <div><strong>Public GitHub Repository:</strong> <a href="https://github.com/cidkagenou198/Git-Workflow-Test-Case-Design" style="color: #1a56db; text-decoration: underline;">https://github.com/cidkagenou198/Git-Workflow-Test-Case-Design</a></div>
+        <div><strong>Deliverable:</strong> Combined PDF Document (Q1 & Q2)</div>
+    </div>
+
+    <!-- QUESTION 1 -->
+    <h2>Question 1: Git & GitHub Workflow (10 Marks)</h2>
+    <p>
+        This section documents the hands-on execution of a full Git version control lifecycle carried out locally. It covers repository initialization, staging, committing snapshots, branching and merging, configuring exclusion patterns via <code>.gitignore</code>, executing an undo operation, and connecting to GitHub.
+    </p>
+
+    <h3>Step 1: Local Repository Setup (2 Marks)</h3>
+    <p>
+        I created a dedicated local project folder on my machine (<code>D:\Bits-Assign</code>) without initializing any remote repository on GitHub beforehand. Inside this folder, I created two HTML files: <code>index.html</code> (the home landing page) and <code>about.html</code> (the project overview page). I then initialized a fresh local Git repository using the default branch name <code>main</code>.
+    </p>
+
+    <div class="terminal-block"><span class="cmd">$ git init -b main</span>
+<span class="output">Initialized empty Git repository in D:/Bits-Assign/.git/</span></div>
+
+    <p><strong>Code for index.html:</strong></p>
+    <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Student Project Portal&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Welcome to My Course Assignment Portal&lt;/h1&gt;
+        &lt;nav&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt; | &lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;div class="main-content"&gt;
+        &lt;h2&gt;Home Page&lt;/h2&gt;
+        &lt;p&gt;This website serves as the local project for demonstrating the Git version control workflow.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+
+    <p><strong>Code for about.html:</strong></p>
+    <div class="code-box">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;About - Student Project&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;About the Project&lt;/h1&gt;
+        &lt;nav&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt; | &lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;div class="main-content"&gt;
+        &lt;h2&gt;About This Repository&lt;/h2&gt;
+        &lt;p&gt;Demonstrates version control, branching, merging, and git undo operations.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+
+    <h3>Step 2: Git Workflow Execution (4 Marks)</h3>
+    <p>
+        The required sequence of Git operations was executed as follows:
+    </p>
+    <ol>
+        <li><strong>Initial Commit:</strong> Staged both HTML files and recorded the baseline state of the repository.</li>
+        <li><strong>Second Commit on main:</strong> Updated <code>index.html</code> with a new "Project Features" section and committed the modification.</li>
+        <li><strong>Branch Creation & Checkout:</strong> Created an isolated branch named <code>feature</code> and switched to it.</li>
+        <li><strong>Commit on feature branch:</strong> Edited <code>about.html</code> to add contact and support details, then committed the changes directly to <code>feature</code>.</li>
+        <li><strong>Merge into main:</strong> Checked out the <code>main</code> branch and merged the <code>feature</code> branch using <code>--no-ff</code> to create an explicit merge commit preserving branch history.</li>
+        <li><strong>Visual History:</strong> Generated the complete commit graph using <code>git log --graph --oneline --decorate --all</code>.</li>
+    </ol>
+
+    <div class="terminal-block"><span class="cmd"># 1. Initial commit</span>
+<span class="cmd">$ git add index.html about.html</span>
+<span class="cmd">$ git commit -m "Initial commit: Add index.html and about.html"</span>
+<span class="output">[main (root-commit) 77ac86a] Initial commit: Add index.html and about.html
+ 2 files changed, 78 insertions(+)
+ create mode 100644 about.html
+ create mode 100644 index.html</span>
+
+<span class="cmd"># 2. Modify index.html and create second commit</span>
+<span class="cmd">$ git add index.html</span>
+<span class="cmd">$ git commit -m "Update index.html: Add project features list"</span>
+<span class="output">[main 1bebdde] Update index.html: Add project features list
+ 1 file changed, 7 insertions(+)</span>
+
+<span class="cmd"># 3. Create and switch to feature branch</span>
+<span class="cmd">$ git branch feature</span>
+<span class="cmd">$ git checkout feature</span>
+<span class="output">Switched to branch 'feature'</span>
+<span class="cmd">$ git branch</span>
+<span class="output">* feature
+  main</span>
+
+<span class="cmd"># 4. Make changes on feature branch and commit</span>
+<span class="cmd">$ git add about.html</span>
+<span class="cmd">$ git commit -m "Add contact information section to about.html"</span>
+<span class="output">[feature a0593d8] Add contact information section to about.html
+ 1 file changed, 3 insertions(+)</span>
+
+<span class="cmd"># 5. Switch back to main and merge feature branch</span>
+<span class="cmd">$ git checkout main</span>
+<span class="output">Switched to branch 'main'</span>
+<span class="cmd">$ git merge feature --no-ff -m "Merge branch 'feature' into main"</span>
+<span class="output">Merge made by the 'ort' strategy.
+ about.html | 3 +++
+ 1 file changed, 3 insertions(+)</span>
+
+<span class="cmd"># 6. Display complete commit history graph</span>
+<span class="cmd">$ git log --graph --oneline --decorate --all</span>
+<span class="output">*   dd6beb4 (HEAD -> main) Merge branch 'feature' into main
+|\  
+| * a0593d8 (feature) Add contact information section to about.html
+|/  
+* 1bebdde Update index.html: Add project features list
+* 77ac86a Initial commit: Add index.html and about.html</span></div>
+
+    <div class="page-break"></div>
+
+    <h3>Step 3: .gitignore Implementation (1 Mark)</h3>
+    <p>
+        To prevent temporary and log files from cluttering the repository, I created a <code>.gitignore</code> file configured to exclude all <code>.log</code> files and any temporary directory (<code>temp/</code>).
+    </p>
+
+    <p><strong>Contents of .gitignore:</strong></p>
+    <div class="code-box"># Ignore all log files
+*.log
+
+# Ignore temporary cache folder
+temp/</div>
+
+    <p><strong>Verification:</strong> To confirm that the ignore rules take effect, I created a test log file (<code>debug.log</code>) and a temporary directory with a test file (<code>temp/temp_data.txt</code>). As shown in the terminal output below, Git ignored both items completely and only detected the new <code>.gitignore</code> file for staging.</p>
+
+    <div class="terminal-block"><span class="cmd">$ git status</span>
+<span class="output">On branch main
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+	.gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)</span>
+
+<span class="cmd">$ git add .gitignore</span>
+<span class="cmd">$ git commit -m "Add .gitignore to exclude .log files and temp directory"</span>
+<span class="output">[main d08fcc5] Add .gitignore to exclude .log files and temp directory
+ 1 file changed, 5 insertions(+)
+ create mode 100644 .gitignore</span></div>
+
+    <h3>Step 4: Undo Operation using Git (1 Mark)</h3>
+    <p>
+        In version control, situations often arise where an unintended commit is recorded. To demonstrate how to cleanly undo a commit:
+    </p>
+    <ol>
+        <li>I made an intentional dummy commit by creating an unwanted file (<code>unwanted_draft.txt</code>) and committing it as <code>42e8318</code>.</li>
+        <li>I used <strong><code>git reset HEAD~1</code></strong> (mixed reset) to undo the commit. This command moves the <code>HEAD</code> pointer back by one commit while keeping the file changes in the local working directory (untracked/unstaged), rather than abruptly discarding them.</li>
+        <li>I verified the repository history using <code>git log</code> to confirm the commit was removed, and then deleted the unneeded file to leave a completely clean working tree.</li>
+    </ol>
+
+    <div class="terminal-block"><span class="cmd"># State before undo: Commit exists in history</span>
+<span class="cmd">$ git commit -m "Draft notes for next release (accidental commit)"</span>
+<span class="output">[main 42e8318] Draft notes for next release (accidental commit)
+ 1 file changed, 1 insertion(+)
+ create mode 100644 unwanted_draft.txt</span>
+
+<span class="cmd">$ git log --oneline -n 3</span>
+<span class="output">42e8318 (HEAD -> main) Draft notes for next release (accidental commit)
+d08fcc5 Add .gitignore to exclude .log files and temp directory
+dd6beb4 Merge branch 'feature' into main</span>
+
+<span class="cmd"># Executing the undo operation</span>
+<span class="cmd">$ git reset HEAD~1</span>
+
+<span class="cmd"># State after undo: Commit removed from branch history</span>
+<span class="cmd">$ git log --oneline -n 3</span>
+<span class="output">d08fcc5 (HEAD -> main) Add .gitignore to exclude .log files and temp directory
+dd6beb4 Merge branch 'feature' into main
+a0593d8 Add contact information section to about.html</span>
+
+<span class="cmd">$ git status</span>
+<span class="output">On branch main
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+	unwanted_draft.txt
+
+nothing added to commit but untracked files present (use "git add" to track)</span></div>
+
+    <h3>Step 5: GitHub Integration (1 Mark)</h3>
+    <p>
+        I configured the connection between the local repository and the public GitHub remote repository using the commands below:
+    </p>
+
+    <div class="terminal-block"><span class="cmd">$ git remote add origin https://github.com/cidkagenou198/Git-Workflow-Test-Case-Design.git</span>
+<span class="cmd">$ git branch -M main</span>
+<span class="cmd">$ git push -u origin main</span></div>
+
+    <div class="note-callout">
+        <strong>Public Repository URL:</strong> <a href="https://github.com/cidkagenou198/Git-Workflow-Test-Case-Design" style="color: #1a56db; text-decoration: underline;">https://github.com/cidkagenou198/Git-Workflow-Test-Case-Design</a><br>
+        The repository is publicly accessible, allowing instructors to verify the complete branch graph, commit history, <code>.gitignore</code>, and command documentation.
+    </div>
+
+    <h3>Step 6: Command Documentation File (1 Mark)</h3>
+    <p>
+        As required, I generated a plain text file named <code>git_commands.txt</code> inside the repository root. Below is the complete content of this file, detailing every command executed and its practical purpose:
+    </p>
+
+    <div class="code-box">================================================================================
+GIT COMMANDS DOCUMENTATION - ASSIGNMENT WORKFLOW
+================================================================================
+
+1. git init -b main
+Initializes a new, empty Git repository in the current project directory and sets the default initial branch to 'main'.
+
+2. git status
+Displays the state of the working directory and staging area, showing which files are untracked, modified, or staged for commit.
+
+3. git add index.html about.html
+Stages the specified files (index.html and about.html), adding their current state to the index in preparation for the initial commit.
+
+4. git commit -m "Initial commit: Add index.html and about.html"
+Creates a new commit containing the staged files along with a descriptive commit message recording the initial project snapshot.
+
+5. git add index.html
+Stages the modified index.html file after adding the project features section.
+
+6. git commit -m "Update index.html: Add project features list"
+Saves the updated version of index.html into the repository history with an explanatory message.
+
+7. git branch feature
+Creates a new branch named 'feature' pointing to the current commit on the main branch.
+
+8. git checkout feature
+Switches the active working branch from 'main' to the 'feature' branch so new work can be done in isolation.
+
+9. git branch
+Lists all local branches in the repository, with an asterisk (*) marking the currently checked-out branch.
+
+10. git add about.html
+Stages the modifications made to about.html while working on the feature branch.
+
+11. git commit -m "Add contact information section to about.html"
+Commits the changes made on the feature branch into the repository history.
+
+12. git checkout main
+Switches the active branch back to 'main' before integrating changes from the feature branch.
+
+13. git merge feature --no-ff -m "Merge branch 'feature' into main"
+Merges the changes from the 'feature' branch into 'main', creating an explicit merge commit to preserve the branch history.
+
+14. git log --graph --oneline --decorate --all
+Displays the complete commit history in a compact, single-line format with an ASCII graph showing branching and merging relationships.
+
+15. git add .gitignore
+Stages the .gitignore file so Git tracks the rules for ignoring log files and temporary folders.
+
+16. git commit -m "Add .gitignore to exclude .log files and temp directory"
+Records the .gitignore file into the repository to prevent untracked artifacts from being staged in the future.
+
+17. git reset HEAD~1
+Undoes the most recent commit by moving the HEAD pointer back by one commit while leaving the file modifications in the working tree.
+
+18. git remote add origin https://github.com/cidkagenou198/Git-Workflow-Test-Case-Design.git
+Links the local repository to a remote repository hosted on GitHub under the alias 'origin'.
+
+19. git branch -M main
+Renames or confirms the primary branch name as 'main' before pushing to the remote repository.
+
+20. git push -u origin main
+Pushes all commits on the local 'main' branch to the remote repository on GitHub and sets up upstream tracking.</div>
+
+    <div class="page-break"></div>
+
+    <!-- QUESTION 2 -->
+    <h2>Question 2: Test Case Design (10 Marks)</h2>
+    
+    <h3>Application Overview & Functional Requirements</h3>
+    <p>
+        The objective is to design a robust test suite for a standard <strong>User Login System</strong> comprising three interactive elements: <strong>Username input field</strong>, <strong>Password input field</strong>, and a <strong>[Login] button</strong>.
+    </p>
+    <p>The system must strictly satisfy the following five functional requirements:</p>
+    <ul>
+        <li><strong>FR-1:</strong> Username must not be empty.</li>
+        <li><strong>FR-2:</strong> Password must be at least 6 characters long.</li>
+        <li><strong>FR-3:</strong> Valid username and password allow a successful login.</li>
+        <li><strong>FR-4:</strong> Invalid credentials should display an appropriate error message.</li>
+        <li><strong>FR-5:</strong> After 3 consecutive failed login attempts, the account should be locked.</li>
+    </ul>
+
+    <h3>Test Design Strategy</h3>
+    <p>
+        To ensure complete test coverage and avoid common real-world bugs, the test suite applies two core software testing techniques:
+    </p>
+    <ul>
+        <li><strong>Equivalence Partitioning (EP):</strong> Divides inputs into valid classes (registered username, valid length password) and invalid classes (empty strings, unregistered users, mismatching passwords).</li>
+        <li><strong>Boundary Value Analysis (BVA):</strong> Focuses on the minimum length boundary for passwords: testing just below the threshold (5 characters - Invalid) and exactly at the threshold (6 characters - Valid).</li>
+        <li><strong>State Transition & Security Testing:</strong> Validates consecutive authentication failure counters to ensure account lockout triggers precisely on the 3rd consecutive failed attempt, and that a successful login resets the failure counter.</li>
+    </ul>
+
+    <h3>Test Case Table</h3>
+    <p>
+        Below is the test case table covering positive, negative, boundary, and security scenarios with specific input data and unambiguous expected results:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 9%;">TC ID</th>
+                <th style="width: 25%;">Test Scenario</th>
+                <th style="width: 28%;">Input Data</th>
+                <th style="width: 38%;">Expected Output</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>TC_01</strong><br><span class="badge-valid">Positive</span></td>
+                <td>Valid login with correct credentials (Happy Path)</td>
+                <td>
+                    <strong>Username:</strong> <code>user1</code><br>
+                    <strong>Password:</strong> <code>pass123</code><br>
+                    Action: Click [Login]
+                </td>
+                <td>
+                    Login is successful. User authentication token is generated, and the browser redirects the user to the application Dashboard page with a "Welcome, user1" message.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_02</strong><br><span class="badge-edge">Boundary</span></td>
+                <td>Password length equal to minimum requirement (6 characters)</td>
+                <td>
+                    <strong>Username:</strong> <code>user1</code><br>
+                    <strong>Password:</strong> <code>Secur1</code> (Exactly 6 chars)<br>
+                    Action: Click [Login]
+                </td>
+                <td>
+                    Password length validation passes. Since credentials are valid, login succeeds and user is redirected to the Dashboard page.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_03</strong><br><span class="badge-invalid">Negative</span></td>
+                <td>Login attempt with empty username field</td>
+                <td>
+                    <strong>Username:</strong> <code>""</code> (Empty string)<br>
+                    <strong>Password:</strong> <code>pass123</code><br>
+                    Action: Click [Login]
+                </td>
+                <td>
+                    Login fails. System displays field validation error: <em>"Username cannot be empty."</em> Input focus remains on the Username field. No server authentication call is made.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_04</strong><br><span class="badge-invalid">Negative</span></td>
+                <td>Login attempt with empty password field</td>
+                <td>
+                    <strong>Username:</strong> <code>user1</code><br>
+                    <strong>Password:</strong> <code>""</code> (Empty string)<br>
+                    Action: Click [Login]
+                </td>
+                <td>
+                    Login fails. System displays field validation error: <em>"Password cannot be empty."</em> Input focus moves to Password field. No authentication call is made.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_05</strong><br><span class="badge-edge">Boundary</span></td>
+                <td>Password length strictly less than 6 characters (5 characters)</td>
+                <td>
+                    <strong>Username:</strong> <code>user1</code><br>
+                    <strong>Password:</strong> <code>abc12</code> (5 characters)<br>
+                    Action: Click [Login]
+                </td>
+                <td>
+                    Login fails. Validation error message displayed below password field: <em>"Password must be at least 6 characters long."</em> Form is not submitted.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_06</strong><br><span class="badge-invalid">Negative</span></td>
+                <td>Valid username with incorrect password (Single failed attempt)</td>
+                <td>
+                    <strong>Username:</strong> <code>user1</code><br>
+                    <strong>Password:</strong> <code>wrongPassword1</code><br>
+                    Action: Click [Login]
+                </td>
+                <td>
+                    Login fails. System displays error message: <em>"Invalid username or password. 2 attempts remaining."</em> Failed login attempt counter increments to 1.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_07</strong><br><span class="badge-invalid">Negative</span></td>
+                <td>Unregistered username with valid format password</td>
+                <td>
+                    <strong>Username:</strong> <code>ghostUser99</code><br>
+                    <strong>Password:</strong> <code>pass12345</code><br>
+                    Action: Click [Login]
+                </td>
+                <td>
+                    Login fails. System displays generic error message: <em>"Invalid username or password."</em> (Prevents username enumeration security vulnerability).
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_08</strong><br><span class="badge-security">Security</span></td>
+                <td>Account lockout triggered after 3 consecutive failed attempts</td>
+                <td>
+                    <strong>Username:</strong> <code>user1</code><br>
+                    <strong>Attempt 1:</strong> <code>badpass1</code> (Fails)<br>
+                    <strong>Attempt 2:</strong> <code>badpass2</code> (Fails)<br>
+                    <strong>Attempt 3:</strong> <code>badpass3</code> (Fails)
+                </td>
+                <td>
+                    On the 3rd consecutive failed attempt, login fails and user account is locked immediately. System displays warning message: <em>"Your account has been locked due to 3 consecutive failed login attempts. Please contact support or reset password."</em>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_09</strong><br><span class="badge-security">Security</span></td>
+                <td>Login blocked on already locked account even with correct password</td>
+                <td>
+                    <strong>Username:</strong> <code>user1</code> (Account locked)<br>
+                    <strong>Password:</strong> <code>pass123</code> (Valid password)<br>
+                    Action: Click [Login]
+                </td>
+                <td>
+                    Login is blocked. System refuses authentication and displays message: <em>"Account is currently locked. Please reset your password to regain access."</em> No session is created.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>TC_10</strong><br><span class="badge-security">Security</span></td>
+                <td>Reset of failed attempt counter upon successful login</td>
+                <td>
+                    <strong>Username:</strong> <code>user1</code><br>
+                    <strong>Attempt 1:</strong> <code>wrongpass1</code> (Fails)<br>
+                    <strong>Attempt 2:</strong> <code>pass123</code> (Valid - Logs in)<br>
+                    Logout, then:<br>
+                    <strong>Attempt 3:</strong> <code>wrongpass2</code> (Fails)
+                </td>
+                <td>
+                    Attempt 2 logs in successfully and resets the failed login attempt counter to 0. When Attempt 3 fails, it is counted as Attempt 1 of 3 (remaining: 2 attempts); account is NOT locked.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Requirement Traceability & Coverage Matrix</h3>
+    <p>
+        The table below demonstrates 100% test coverage against every functional requirement specified in the assignment brief:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Requirement ID & Description</th>
+                <th style="width: 35%;">Test Cases Covering Requirement</th>
+                <th style="width: 40%;">Coverage Justification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>FR-1:</strong> Username must not be empty</td>
+                <td><code>TC_03</code></td>
+                <td>Validates that submitting with an empty username is blocked with a clear inline validation message.</td>
+            </tr>
+            <tr>
+                <td><strong>FR-2:</strong> Password minimum 6 characters</td>
+                <td><code>TC_02</code> (6 chars), <code>TC_04</code> (0 chars), <code>TC_05</code> (5 chars)</td>
+                <td>Comprehensive boundary testing covering empty, 5 characters (1 below boundary), and 6 characters (exact boundary).</td>
+            </tr>
+            <tr>
+                <td><strong>FR-3:</strong> Valid credentials allow successful login</td>
+                <td><code>TC_01</code>, <code>TC_02</code></td>
+                <td>Validates happy path and boundary-length valid login with proper redirection to the Dashboard.</td>
+            </tr>
+            <tr>
+                <td><strong>FR-4:</strong> Invalid credentials display error message</td>
+                <td><code>TC_06</code>, <code>TC_07</code></td>
+                <td>Tests both wrong password for existing user and non-existent username, ensuring clear and secure error messages.</td>
+            </tr>
+            <tr>
+                <td><strong>FR-5:</strong> Account locked after 3 consecutive failures</td>
+                <td><code>TC_08</code>, <code>TC_09</code>, <code>TC_10</code></td>
+                <td>Tests the exact 3-failure trigger, blocks further attempts on a locked account, and verifies counter reset upon valid login.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+
